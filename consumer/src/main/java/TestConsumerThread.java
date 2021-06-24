@@ -7,6 +7,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -27,7 +28,7 @@ public class TestConsumerThread implements Runnable {
 
         try {
             while (true) {
-                final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
+                final ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
                 for (ConsumerRecord<Long, String> cr : consumerRecords) {
                     System.out.printf("------------- Consumer Record:(%d, %s, %d, %d)\n", cr.key(), cr.value(),
                             cr.partition(), cr.offset());
